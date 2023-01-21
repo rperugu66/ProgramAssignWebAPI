@@ -17,12 +17,12 @@ namespace ProgramAssignWebAPI.Models.Domain
             public string SME { get; set; }
             public string SMEStatus { get; set; }
             public string ProgramStatus { get; set; }
-        // FK Key For 
-        public int ProgramsTrackerId { get; set; }
-        // Navigation prop
-        // Binding navigation prop back to the region
-        public ProgramsTracker ProgramsTracker { get; set; }
-        // navigation prop for WalkDifficulty
+            // FK Key For 
+            public int ProgramsTrackerId { get; set; }
+            // Navigation prop
+            // Binding navigation prop back to the region
+            public ProgramsTracker ProgramsTracker { get; set; }
+            // navigation prop for WalkDifficulty
 
 
     }
