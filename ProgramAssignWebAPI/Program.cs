@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using ProgramAssignWebAPI.Data;
+using ProgramAssignWebAPI.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,11 @@ builder.Services.AddDbContext<AssignDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("AssignPath"));
 });
+// Register interface and Repo Class to resolve dependencies
+builder.Services.AddScoped<IResourceManagerAssignmentRepo, ResourceManagerAssignmentRepo>();
+
+// to inject automapper profiles
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 var app = builder.Build();
 
