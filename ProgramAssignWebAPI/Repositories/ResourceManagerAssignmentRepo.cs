@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProgramAssignWebAPI.Data;
 using ProgramAssignWebAPI.Models.Domain;
+using System;
 
 namespace ProgramAssignWebAPI.Repositories
 {
@@ -17,7 +18,15 @@ namespace ProgramAssignWebAPI.Repositories
 
         public async Task<ResourceMangerAssignments> AddResource(ResourceMangerAssignments resource)
         {
+            Random random = new Random();
            
+            var getAllPrograms =  _dbContext.ProgramsTracker.Where(x => x.TechTrack == resource.TechTrack).Select(x =>x.Id).ToArray();
+            
+            var index = random.Next(getAllPrograms.Count());
+            resource.ProgramsTrackerId = getAllPrograms[index];
+                
+
+            //resource.ProgramsTrackerId = 
            var dbResource =await _dbContext.ResourceMangerAssignments.AddAsync(resource);
             await _dbContext.SaveChangesAsync();
             resource.Id = dbResource.Entity.Id;

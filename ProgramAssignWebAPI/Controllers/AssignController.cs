@@ -39,6 +39,9 @@ namespace ProgramAssignWebAPI.Controllers
         public async Task< IActionResult> GetResourceById(int id)
         {
             var resourcedomain = await _resourceManagerAssignmentRepo.GetResourceById(id);
+            //Check Null
+            if (resourcedomain == null)
+                return NotFound();
             //Convert Domain to Dto
             var resourcedto = _mapper.Map<ResourceManagerAssignmentDto>(resourcedomain);
             return Ok(resourcedto);

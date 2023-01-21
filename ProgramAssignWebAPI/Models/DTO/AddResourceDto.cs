@@ -12,6 +12,6 @@
         public string SMEStatus { get; set; }
         public string ProgramStatus { get; set; }
         // FK Key For 
-        public int ProgramsTrackerId { get; set; }
+        //public int ProgramsTrackerId { get; set; }
     }
 }
