@@ -22,7 +22,12 @@ builder.Services.AddScoped<IProgramTrackerRepo, ProgramTrackerRepo>();
 
 // to inject automapper profiles
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
-
+//Enable CORS
+builder.Services.AddCors(c =>
+{
+    c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod()
+      .AllowAnyHeader());
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -37,5 +42,5 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 app.Run();
