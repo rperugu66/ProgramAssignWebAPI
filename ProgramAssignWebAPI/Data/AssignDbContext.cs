@@ -11,6 +11,7 @@ namespace ProgramAssignWebAPI.Data
             // Create Dbset Props to Create Resp Table in the SQL Server
                 public DbSet<ResourceMangerAssignments> ResourceMangerAssignments { get; set; }
         public DbSet<ProgramsTracker> ProgramsTracker { get; set; }
+        public DbSet<TechTracks> TechTracks { get; set; }
     }
     
     

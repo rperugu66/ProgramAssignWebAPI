@@ -51,6 +51,8 @@ namespace ProgramAssignWebAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> AddResource([FromBody]AddResourceDto addResourceDto)
         {
+            addResourceDto.ProgramStatus = "Open";
+            addResourceDto.SMEStatus = "Open";
             // Convert DTo to Domain 
             var addResourceDomain = _mapper.Map<ResourceMangerAssignments>(addResourceDto);
 

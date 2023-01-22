@@ -19,6 +19,12 @@ namespace ProgramAssignWebAPI.Repositories
              
         }
 
+        public Task<IEnumerable<string>> GetTechTracksAsync()
+        {
+            throw new Exception();
+            // return _dbContext.ProgramsTracker.Distinct
+        }
+
         Task<ProgramsTracker> IProgramTrackerRepo.GetProgramsTracker(int Id)
         {
            return _dbContext.ProgramsTracker.FirstOrDefaultAsync(x =>x.Id == Id);   

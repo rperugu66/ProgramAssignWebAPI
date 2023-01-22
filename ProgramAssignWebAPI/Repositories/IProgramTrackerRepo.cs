@@ -6,5 +6,6 @@ namespace ProgramAssignWebAPI.Repositories
     {
         Task<IEnumerable<ProgramsTracker>> GetAllProgramTrackersAsync();   
         Task<ProgramsTracker> GetProgramsTracker(int Id);
+        Task<IEnumerable<string>> GetTechTracksAsync();
     }
 }

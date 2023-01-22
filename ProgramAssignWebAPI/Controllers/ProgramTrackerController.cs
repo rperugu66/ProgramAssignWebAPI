@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ProgramAssignWebAPI.Models.DTO;
 using ProgramAssignWebAPI.Repositories;
+using System.Collections;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -60,6 +61,18 @@ namespace ProgramAssignWebAPI.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+        }
+        [Route("GetTechTracks")]
+        [HttpGet]
+        public async Task<IActionResult> GetTechTracks()
+        {
+            List<string> TechList = new List<string>()
+            {
+                ".NET",
+                "Java" ,
+                "PowerPlatform"
+            };
+            return Ok(TechList);
         }
     }
 }

@@ -9,8 +9,8 @@
         public DateTime EndDate { get; set; }
         public string Manager { get; set; }
         public string SME { get; set; }
-        public string SMEStatus { get; set; }
-        public string ProgramStatus { get; set; }
+        public string? SMEStatus { get; set; }
+        public string? ProgramStatus { get; set; }
         // FK Key For 
         //public int ProgramsTrackerId { get; set; }
     }
