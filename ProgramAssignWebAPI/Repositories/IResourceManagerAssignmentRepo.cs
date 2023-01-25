@@ -8,6 +8,6 @@ namespace ProgramAssignWebAPI.Repositories
         Task<ResourceMangerAssignments> AddResource(ResourceMangerAssignments resource);
 
         Task<ResourceMangerAssignments> GetResourceById(int Id);
-        
+        Task<ResourceMangerAssignments> UpdateResource(int id,ResourceMangerAssignments resource);
     }
 }

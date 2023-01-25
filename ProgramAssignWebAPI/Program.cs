@@ -19,7 +19,6 @@ builder.Services.AddDbContext<AssignDbContext>(options =>
 builder.Services.AddScoped<IResourceManagerAssignmentRepo, ResourceManagerAssignmentRepo>();
 builder.Services.AddScoped<IProgramTrackerRepo, ProgramTrackerRepo>();
 
-
 // to inject automapper profiles
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 //Enable CORS

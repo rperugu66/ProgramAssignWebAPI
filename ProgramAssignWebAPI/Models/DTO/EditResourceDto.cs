@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ProgramAssignWebAPI.Models.DTO
 {
-    public class AddResourceDto
+    public class EditResourceDto
     {
         public int VAMID { get; set; }
         public string TechTrack { get; set; }
@@ -19,7 +19,5 @@ namespace ProgramAssignWebAPI.Models.DTO
         public string SME { get; set; }
         public string? SMEStatus { get; set; }
         public string? ProgramStatus { get; set; }
-        // FK Key For 
-        //public int ProgramsTrackerId { get; set; }
     }
 }

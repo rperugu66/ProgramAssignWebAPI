@@ -43,5 +43,24 @@ namespace ProgramAssignWebAPI.Repositories
         {
             return await _dbContext.ResourceMangerAssignments.Include(x => x.ProgramsTracker).FirstOrDefaultAsync(x => x.Id == Id);
         }
+
+        public async Task<ResourceMangerAssignments> UpdateResource(int id, ResourceMangerAssignments resource)
+        {
+            var resourcefromdb = await _dbContext.ResourceMangerAssignments.FindAsync(id);
+            if(resourcefromdb != null)
+            {
+                resourcefromdb.VAMID = resource.VAMID;
+                resourcefromdb.ResourceName = resource.ResourceName;
+                resourcefromdb.TechTrack= resource.TechTrack;
+                resourcefromdb.StartDate =resource.StartDate;
+                resourcefromdb.EndDate = resource.EndDate;
+                resourcefromdb.SME = resource.SME;
+                resourcefromdb.Manager = resource.Manager;
+                await _dbContext.SaveChangesAsync();
+                return await _dbContext.ResourceMangerAssignments.Include(x => x.ProgramsTracker)
+                    .FirstOrDefaultAsync(x => x.Id == resourcefromdb.Id);
+            }
+            return null;
+        }
     }
 }

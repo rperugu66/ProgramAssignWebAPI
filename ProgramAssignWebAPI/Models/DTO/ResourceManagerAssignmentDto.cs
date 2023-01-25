@@ -12,7 +12,13 @@ namespace ProgramAssignWebAPI.Models.DTO
         public int VAMID { get; set; }
         public string TechTrack { get; set; }
         public string ResourceName { get; set; }
+        [DataType(DataType.Date)]
+        [Column(TypeName = "Date")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/mm/yyyy}")]
         public DateTime StartDate { get; set; }
+        [DataType(DataType.Date)]
+        [Column(TypeName = "Date")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/mm/yyyy}")]
         public DateTime EndDate { get; set; }
         public string Manager { get; set; }
         public string SME { get; set; }

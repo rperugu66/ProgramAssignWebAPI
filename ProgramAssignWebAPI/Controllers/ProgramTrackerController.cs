@@ -70,7 +70,8 @@ namespace ProgramAssignWebAPI.Controllers
             {
                 ".NET",
                 "Java" ,
-                "PowerPlatform"
+                "JavaScript",
+                "SQL"
             };
             return Ok(TechList);
         }

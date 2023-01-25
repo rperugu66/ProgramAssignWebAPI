@@ -47,6 +47,7 @@ namespace ProgramAssignWebAPI.Controllers
             return Ok(resourcedto);
         }
 
+
         // POST api/<AssignController>
         [HttpPost]
         public async Task<IActionResult> AddResource([FromBody]AddResourceDto addResourceDto)
@@ -68,8 +69,22 @@ namespace ProgramAssignWebAPI.Controllers
 
         // PUT api/<AssignController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> Put(int id, [FromBody] EditResourceDto editResourceDto)
         {
+            // Convert dto to domain 
+           var  resourcedomain = _mapper.Map<ResourceMangerAssignments>(editResourceDto);
+           // service method
+           var returnObj = await _resourceManagerAssignmentRepo.UpdateResource(id,resourcedomain);
+
+            if (returnObj == null)
+                return NotFound();
+
+            // convert domain to dto and call action createdat
+            var responsedto = _mapper.Map<ResourceManagerAssignmentDto>(returnObj);
+            return CreatedAtAction(nameof(GetResourceById), new { id = responsedto.Id }, responsedto);
+
+
+
         }
 
         // DELETE api/<AssignController>/5
