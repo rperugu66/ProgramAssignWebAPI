@@ -18,6 +18,7 @@ builder.Services.AddDbContext<AssignDbContext>(options =>
 // Register interface and Repo Class to resolve dependencies
 builder.Services.AddScoped<IResourceManagerAssignmentRepo, ResourceManagerAssignmentRepo>();
 builder.Services.AddScoped<IProgramTrackerRepo, ProgramTrackerRepo>();
+builder.Services.AddScoped<ITechTracks, TechTracksRepo>();
 
 // to inject automapper profiles
 builder.Services.AddAutoMapper(typeof(Program).Assembly);

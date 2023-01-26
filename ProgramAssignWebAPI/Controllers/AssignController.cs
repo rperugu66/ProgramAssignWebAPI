@@ -89,8 +89,16 @@ namespace ProgramAssignWebAPI.Controllers
 
         // DELETE api/<AssignController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> DeleteResource(int id)
         {
+            // pass the id to service and delete the record
+            var response = await _resourceManagerAssignmentRepo.DeletResource(id);
+            if (response == null)
+                return NotFound();
+            // convert domain model to dto 
+            var responsedto = _mapper.Map<ResourceManagerAssignmentDto>(response);
+            return Ok(responsedto);
+
         }
     }
 }

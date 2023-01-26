@@ -34,6 +34,20 @@ namespace ProgramAssignWebAPI.Repositories
             return resourcedb;
         }
 
+        public async Task<ResourceMangerAssignments?> DeletResource(int id)
+        {
+
+            // Get the item from db to delete 
+            var resourcedb = await _dbContext.ResourceMangerAssignments.Include(x => x.ProgramsTracker).FirstOrDefaultAsync(x => x.Id == id);
+            if (resourcedb == null)
+                return null;
+            _dbContext.Remove(resourcedb);
+            await _dbContext.SaveChangesAsync();
+            return (resourcedb);
+            // remove 
+
+        }
+
         public async Task<IEnumerable<ResourceMangerAssignments>> GetAllResourceAsync()
         {
             return await _dbContext.ResourceMangerAssignments.Include(x => x.ProgramsTracker).ToListAsync();

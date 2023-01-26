@@ -15,11 +15,16 @@ namespace ProgramAssignWebAPI.Controllers
         private readonly IResourceManagerAssignmentRepo _resourceManagerAssignmentRepo;
         private readonly IProgramTrackerRepo _programTrackerRepo;
         private readonly IMapper _mapper;
-        public ProgramTrackerController(IResourceManagerAssignmentRepo resourceManagerAssignmentRepo, IProgramTrackerRepo programTrackerRepo,IMapper mapper)
+        private readonly ITechTracks _techTracksRepo;
+
+        public ProgramTrackerController(IResourceManagerAssignmentRepo resourceManagerAssignmentRepo, 
+            IProgramTrackerRepo programTrackerRepo,IMapper mapper
+            , ITechTracks techTracksRepo)
         {
             _resourceManagerAssignmentRepo = resourceManagerAssignmentRepo;
             _programTrackerRepo = programTrackerRepo;
             _mapper = mapper;
+            _techTracksRepo = techTracksRepo;
         }
 
         // GET: api/<ProgramTrackerController>
@@ -66,14 +71,9 @@ namespace ProgramAssignWebAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTechTracks()
         {
-            List<string> TechList = new List<string>()
-            {
-                ".NET",
-                "Java" ,
-                "JavaScript",
-                "SQL"
-            };
-            return Ok(TechList);
+            var tracks = await _techTracksRepo.GetAllTracks();
+            var tracksdto = _mapper.Map<List<TechTracksDto>>(tracks);
+            return Ok(tracksdto); ;
         }
     }
 }
