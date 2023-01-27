@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProgramAssignWebAPI.Data;
 
@@ -11,9 +12,11 @@ using ProgramAssignWebAPI.Data;
 namespace ProgramAssignWebAPI.Migrations
 {
     [DbContext(typeof(AssignDbContext))]
-    partial class AssignDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230124091948_autoAssigning")]
+    partial class autoAssigning
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -113,16 +116,6 @@ namespace ProgramAssignWebAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TechTracks");
-                });
-
-            modelBuilder.Entity("ProgramAssignWebAPI.Models.Domain.VAM_Holidays", b =>
-                {
-                    b.Property<DateTime>("Holidays")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Holidays");
-
-                    b.ToTable("VAM_Holidays");
                 });
 
             modelBuilder.Entity("ProgramAssignWebAPI.Models.Domain.ResourceMangerAssignments", b =>
