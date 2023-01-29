@@ -19,6 +19,7 @@ builder.Services.AddDbContext<AssignDbContext>(options =>
 builder.Services.AddScoped<IResourceManagerAssignmentRepo, ResourceManagerAssignmentRepo>();
 builder.Services.AddScoped<IProgramTrackerRepo, ProgramTrackerRepo>();
 builder.Services.AddScoped<ITechTracks, TechTracksRepo>();
+builder.Services.AddScoped<IUserInfoRepo, UserInfoRepo>();
 
 // to inject automapper profiles
 builder.Services.AddAutoMapper(typeof(Program).Assembly);

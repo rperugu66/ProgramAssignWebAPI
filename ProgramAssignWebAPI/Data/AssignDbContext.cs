@@ -12,6 +12,7 @@ namespace ProgramAssignWebAPI.Data
                 public DbSet<ResourceMangerAssignments> ResourceMangerAssignments { get; set; }
         public DbSet<ProgramsTracker> ProgramsTracker { get; set; }
         public DbSet<TechTracks> TechTracks { get; set; }
+        public DbSet<UserInfo> UserInfo { get; set; }
     }
     
     

@@ -65,6 +65,7 @@ namespace ProgramAssignWebAPI.Repositories
             {
                 resourcefromdb.VAMID = resource.VAMID;
                 resourcefromdb.ResourceName = resource.ResourceName;
+                resourcefromdb.Email = resource.Email;
                 resourcefromdb.TechTrack= resource.TechTrack;
                 resourcefromdb.StartDate =resource.StartDate;
                 resourcefromdb.EndDate = resource.EndDate;

@@ -10,6 +10,8 @@ namespace ProgramAssignWebAPI.Models.DTO
         [Key]
         public int Id { get; set; }
         public int VAMID { get; set; }
+
+        public string Email { get; set; }
         public string TechTrack { get; set; }
         public string ResourceName { get; set; }
         [DataType(DataType.Date)]

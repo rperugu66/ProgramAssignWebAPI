@@ -9,6 +9,7 @@ namespace ProgramAssignWebAPI.Models.DTO
         public int VAMID { get; set; }
         public string TechTrack { get; set; }
         public string ResourceName { get; set; }
+        public string Email { get; set; }
         [DataType(DataType.Date)]
         [Column(TypeName = "Date")]
         public DateTime StartDate { get; set; }
