@@ -27,6 +27,7 @@ namespace ProgramAssignWebAPI.Models.Domain
             // Navigation prop
             // Binding navigation prop back to the region
             public ProgramsTracker ProgramsTracker { get; set; }
+           public string HistoryProgramTrackerId { get; set;}
             // navigation prop for WalkDifficulty
 
 

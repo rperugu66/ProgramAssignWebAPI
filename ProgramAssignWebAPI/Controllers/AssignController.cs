@@ -100,5 +100,16 @@ namespace ProgramAssignWebAPI.Controllers
             return Ok(responsedto);
 
         }
+        [Route("GetResourceHistoryById/{id}")]
+        [HttpGet]
+
+        public async Task<IActionResult> GetResourceHistoryById (int id)
+        {
+            // call repo method
+            var resp = await _resourceManagerAssignmentRepo.GetResourceHistoryById(id);
+            //convert domain to dto 
+            var respdto = _mapper.Map<List<ResourceManagerAssignmentDto>>(resp);
+            return Ok(respdto);
+        }
     }
 }

@@ -12,8 +12,8 @@ using ProgramAssignWebAPI.Data;
 namespace ProgramAssignWebAPI.Migrations
 {
     [DbContext(typeof(AssignDbContext))]
-    [Migration("20230129120755_addedHistoryTable1")]
-    partial class addedHistoryTable1
+    [Migration("20230204104322_HistoryColumn2")]
+    partial class HistoryColumn2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,16 +37,6 @@ namespace ProgramAssignWebAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("PeriodEnd")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("PeriodEnd");
-
-                    b.Property<DateTime>("PeriodStart")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("datetime2")
-                        .HasColumnName("PeriodStart");
-
                     b.Property<string>("Program")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -57,18 +47,7 @@ namespace ProgramAssignWebAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PrgramsTracker", (string)null);
-
-                    b.ToTable(tb => tb.IsTemporal(ttb =>
-                            {
-                                ttb.UseHistoryTable("PrgramsTrackerHistory");
-                                ttb
-                                    .HasPeriodStart("PeriodStart")
-                                    .HasColumnName("PeriodStart");
-                                ttb
-                                    .HasPeriodEnd("PeriodEnd")
-                                    .HasColumnName("PeriodEnd");
-                            }));
+                    b.ToTable("ProgramsTracker");
                 });
 
             modelBuilder.Entity("ProgramAssignWebAPI.Models.Domain.ResourceMangerAssignments", b =>

@@ -10,5 +10,7 @@ namespace ProgramAssignWebAPI.Repositories
         Task<ResourceMangerAssignments> GetResourceById(int Id);
         Task<ResourceMangerAssignments> UpdateResource(int id,ResourceMangerAssignments resource);
         Task<ResourceMangerAssignments?> DeletResource(int id);
+        Task<IEnumerable<ResourceMangerAssignments>> GetResourceHistoryById(int Id);
+
     }
 }

@@ -2,6 +2,7 @@
 using ProgramAssignWebAPI.Data;
 using ProgramAssignWebAPI.Models.Domain;
 using System;
+//using TemporalTableWithNavigation;
 
 namespace ProgramAssignWebAPI.Repositories
 {
@@ -24,7 +25,8 @@ namespace ProgramAssignWebAPI.Repositories
             
             var index = random.Next(getAllPrograms.Count());
             resource.ProgramsTrackerId = getAllPrograms[index];
-                
+            resource.HistoryProgramTrackerId = getAllPrograms[index].ToString();
+
 
             //resource.ProgramsTrackerId = 
            var dbResource =await _dbContext.ResourceMangerAssignments.AddAsync(resource);
@@ -56,6 +58,38 @@ namespace ProgramAssignWebAPI.Repositories
         public async Task<ResourceMangerAssignments> GetResourceById(int Id)
         {
             return await _dbContext.ResourceMangerAssignments.Include(x => x.ProgramsTracker).FirstOrDefaultAsync(x => x.Id == Id);
+        }
+
+        public async Task<IEnumerable<ResourceMangerAssignments>> GetResourceHistoryById(int Id)
+        {
+           var response = await  _dbContext.ResourceMangerAssignments.TemporalAll().Where(x => x.Id == Id).ToListAsync();
+           IList<ResourceMangerAssignments> resources = new List<ResourceMangerAssignments>();
+            var GetAllPrograms =await _dbContext.ProgramsTracker.ToListAsync();
+            foreach (var item in response)
+            {
+                // make call to service and get programtackerby id
+                var programtracker = GetAllPrograms.FirstOrDefault(x => x.Id == item.ProgramsTrackerId);
+                    //await _dbContext.ProgramsTracker.FirstOrDefaultAsync(x => x.Id == item.ProgramsTrackerId);
+                var newitem = new ResourceMangerAssignments()
+                {
+                    Id = item.Id,
+                    VAMID = item.VAMID,
+                    Email = item.Email,
+                    ResourceName = item.ResourceName,
+                    StartDate = item.StartDate,
+                    EndDate = item.EndDate,
+                    Manager = item.Manager,
+                    SME = item.SME,
+                    SMEStatus = item.SMEStatus,
+                    ProgramStatus = item.ProgramStatus,
+                    ProgramsTrackerId = item.ProgramsTrackerId,
+                    ProgramsTracker = programtracker
+
+                };
+                resources.Add(newitem);
+            }
+            return resources;
+
         }
 
         public async Task<ResourceMangerAssignments> UpdateResource(int id, ResourceMangerAssignments resource)
