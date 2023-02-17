@@ -60,35 +60,35 @@ namespace ProgramAssignWebAPI.Repositories
             return await _dbContext.ResourceMangerAssignments.Include(x => x.ProgramsTracker).FirstOrDefaultAsync(x => x.Id == Id);
         }
 
-        public async Task<IEnumerable<ResourceMangerAssignments>> GetResourceHistoryById(int Id)
+        public async Task<IEnumerable<ResourceManagerAssignmentsHistory>> GetResourceHistoryById(int Id)
         {
-           var response = await  _dbContext.ResourceMangerAssignments.TemporalAll().Where(x => x.Id == Id).ToListAsync();
-           IList<ResourceMangerAssignments> resources = new List<ResourceMangerAssignments>();
-            var GetAllPrograms =await _dbContext.ProgramsTracker.ToListAsync();
-            foreach (var item in response)
-            {
-                // make call to service and get programtackerby id
-                var programtracker = GetAllPrograms.FirstOrDefault(x => x.Id == item.ProgramsTrackerId);
-                    //await _dbContext.ProgramsTracker.FirstOrDefaultAsync(x => x.Id == item.ProgramsTrackerId);
-                var newitem = new ResourceMangerAssignments()
-                {
-                    Id = item.Id,
-                    VAMID = item.VAMID,
-                    Email = item.Email,
-                    ResourceName = item.ResourceName,
-                    StartDate = item.StartDate,
-                    EndDate = item.EndDate,
-                    Manager = item.Manager,
-                    SME = item.SME,
-                    SMEStatus = item.SMEStatus,
-                    ProgramStatus = item.ProgramStatus,
-                    ProgramsTrackerId = item.ProgramsTrackerId,
-                    ProgramsTracker = programtracker
+           var response = await  _dbContext.ResourceManagerAssignmentsHistory.Include(x =>x.ProgramsTracker).Where(x => x.Id == Id).ToListAsync();
+           //IList<ResourceMangerAssignments> resources = new List<ResourceMangerAssignments>();
+           // var GetAllPrograms =await _dbContext.ProgramsTracker.ToListAsync();
+           // foreach (var item in response)
+           // {
+           //     // make call to service and get programtackerby id
+           //     var programtracker = GetAllPrograms.FirstOrDefault(x => x.Id == item.ProgramsTrackerId);
+           //         //await _dbContext.ProgramsTracker.FirstOrDefaultAsync(x => x.Id == item.ProgramsTrackerId);
+           //     var newitem = new ResourceMangerAssignments()
+           //     {
+           //         Id = item.Id,
+           //         VAMID = item.VAMID,
+           //         Email = item.Email,
+           //         ResourceName = item.ResourceName,
+           //         StartDate = item.StartDate,
+           //         EndDate = item.EndDate,
+           //         Manager = item.Manager,
+           //         SME = item.SME,
+           //         SMEStatus = item.SMEStatus,
+           //         ProgramStatus = item.ProgramStatus,
+           //         ProgramsTrackerId = item.ProgramsTrackerId,
+           //         ProgramsTracker = programtracker
 
-                };
-                resources.Add(newitem);
-            }
-            return resources;
+           //     };
+           //     resources.Add(newitem);
+           // }
+            return response.ToList();
 
         }
 
@@ -105,7 +105,12 @@ namespace ProgramAssignWebAPI.Repositories
                 resourcefromdb.EndDate = resource.EndDate;
                 resourcefromdb.SME = resource.SME;
                 resourcefromdb.Manager = resource.Manager;
-                await _dbContext.SaveChangesAsync();
+                try
+                {
+                    await _dbContext.SaveChangesAsync();
+                }
+                catch(Exception ex) { var msg = ex; }
+               
                 return await _dbContext.ResourceMangerAssignments.Include(x => x.ProgramsTracker)
                     .FirstOrDefaultAsync(x => x.Id == resourcefromdb.Id);
             }

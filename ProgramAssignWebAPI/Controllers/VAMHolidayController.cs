@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ProgramAssignWebAPI.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class VAMHolidayController : ControllerBase
     {
 

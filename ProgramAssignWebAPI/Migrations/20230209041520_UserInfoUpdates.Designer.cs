@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProgramAssignWebAPI.Data;
 
@@ -11,9 +12,11 @@ using ProgramAssignWebAPI.Data;
 namespace ProgramAssignWebAPI.Migrations
 {
     [DbContext(typeof(AssignDbContext))]
-    partial class AssignDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230209041520_UserInfoUpdates")]
+    partial class UserInfoUpdates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,34 +24,6 @@ namespace ProgramAssignWebAPI.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("ProgramAssignWebAPI.Models.Domain.Employees", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("VAMID")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Employees");
-                });
 
             modelBuilder.Entity("ProgramAssignWebAPI.Models.Domain.ProgramsTracker", b =>
                 {
@@ -75,72 +50,6 @@ namespace ProgramAssignWebAPI.Migrations
                     b.ToTable("ProgramsTracker");
                 });
 
-            modelBuilder.Entity("ProgramAssignWebAPI.Models.Domain.ResourceManagerAssignmentsHistory", b =>
-                {
-                    b.Property<int>("HistoryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HistoryId"));
-
-                    b.Property<string>("ActionType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("Date");
-
-                    b.Property<string>("HistoryProgramTrackerId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Manager")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProgramStatus")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProgramsTrackerId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ResourceName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SME")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SMEStatus")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("Date");
-
-                    b.Property<string>("TechTrack")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("VAMID")
-                        .HasColumnType("int");
-
-                    b.HasKey("HistoryId");
-
-                    b.HasIndex("ProgramsTrackerId");
-
-                    b.ToTable("ResourceManagerAssignmentsHistory");
-                });
-
             modelBuilder.Entity("ProgramAssignWebAPI.Models.Domain.ResourceMangerAssignments", b =>
                 {
                     b.Property<int>("Id")
@@ -163,6 +72,16 @@ namespace ProgramAssignWebAPI.Migrations
                     b.Property<string>("Manager")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("PeriodEnd")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("PeriodEnd");
+
+                    b.Property<DateTime>("PeriodStart")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("datetime2")
+                        .HasColumnName("PeriodStart");
 
                     b.Property<string>("ProgramStatus")
                         .IsRequired()
@@ -197,10 +116,18 @@ namespace ProgramAssignWebAPI.Migrations
 
                     b.HasIndex("ProgramsTrackerId");
 
-                    b.ToTable("ResourceMangerAssignments", t =>
-                        {
-                            t.HasTrigger("ResourceManagerAssignments_Update_Trigger");
-                        });
+                    b.ToTable("ResourceMangerAssignments", (string)null);
+
+                    b.ToTable(tb => tb.IsTemporal(ttb =>
+                            {
+                                ttb.UseHistoryTable("ResourceMangerAssignmentsHistory");
+                                ttb
+                                    .HasPeriodStart("PeriodStart")
+                                    .HasColumnName("PeriodStart");
+                                ttb
+                                    .HasPeriodEnd("PeriodEnd")
+                                    .HasColumnName("PeriodEnd");
+                            }));
                 });
 
             modelBuilder.Entity("ProgramAssignWebAPI.Models.Domain.TechTracks", b =>
@@ -246,41 +173,6 @@ namespace ProgramAssignWebAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("UserInfo");
-                });
-
-            modelBuilder.Entity("ProgramAssignWebAPI.Models.FileDetails", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<byte[]>("FileData")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("FileName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("FileType")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("FileDetails");
-                });
-
-            modelBuilder.Entity("ProgramAssignWebAPI.Models.Domain.ResourceManagerAssignmentsHistory", b =>
-                {
-                    b.HasOne("ProgramAssignWebAPI.Models.Domain.ProgramsTracker", "ProgramsTracker")
-                        .WithMany()
-                        .HasForeignKey("ProgramsTrackerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ProgramsTracker");
                 });
 
             modelBuilder.Entity("ProgramAssignWebAPI.Models.Domain.ResourceMangerAssignments", b =>

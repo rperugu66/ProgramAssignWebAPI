@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProgramAssignWebAPI.Data;
 
@@ -11,9 +12,11 @@ using ProgramAssignWebAPI.Data;
 namespace ProgramAssignWebAPI.Migrations
 {
     [DbContext(typeof(AssignDbContext))]
-    partial class AssignDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230217184929_removeHistoryTable1")]
+    partial class removeHistoryTable1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -82,10 +85,6 @@ namespace ProgramAssignWebAPI.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HistoryId"));
-
-                    b.Property<string>("ActionType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -197,10 +196,7 @@ namespace ProgramAssignWebAPI.Migrations
 
                     b.HasIndex("ProgramsTrackerId");
 
-                    b.ToTable("ResourceMangerAssignments", t =>
-                        {
-                            t.HasTrigger("ResourceManagerAssignments_Update_Trigger");
-                        });
+                    b.ToTable("ResourceMangerAssignments");
                 });
 
             modelBuilder.Entity("ProgramAssignWebAPI.Models.Domain.TechTracks", b =>
