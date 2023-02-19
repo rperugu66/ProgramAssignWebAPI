@@ -11,5 +11,6 @@ namespace ProgramAssignWebAPI.Models.Domain
         public string TechTrack { get; set; }
         public string Category { get; set; }
         public string Program { get; set; }
+        
     }
 }

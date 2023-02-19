@@ -36,7 +36,7 @@ namespace ProgramAssignWebAPI.Controllers
             }
             try
             {
-                await _uploadService.PostFileAsync(fileDetails.FileDetails, fileDetails.FileType);
+                await _uploadService.PostFileAsync(fileDetails.FileDetails, fileDetails.FileType,fileDetails.HistoryId);
                 return Ok();
             }
             catch (Exception)

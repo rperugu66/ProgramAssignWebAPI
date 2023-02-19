@@ -10,6 +10,7 @@
 //}
 
 
+using ProgramAssignWebAPI.Models.Domain;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace ProgramAssignWebAPI.Models
@@ -23,6 +24,9 @@ namespace ProgramAssignWebAPI.Models
         public string FileName { get; set; }
         public byte[] FileData { get; set; }
         public FileType FileType { get; set; }
+
+        
+
     }
 }
 

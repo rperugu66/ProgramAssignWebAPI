@@ -11,7 +11,7 @@ namespace ProgramAssignWebAPI.Services
         {
             _dbContext = dbContext;
         }
-        public async Task PostFileAsync(IFormFile fileData, FileType fileType)
+        public async Task PostFileAsync(IFormFile fileData, FileType fileType,int HistoryId)
         {
             try
             {
@@ -26,7 +26,19 @@ namespace ProgramAssignWebAPI.Services
                     fileDetails.FileData = stream.ToArray();
                 }
                 var result = _dbContext.FileDetails.Add(fileDetails);
-                await _dbContext.SaveChangesAsync();
+                 await _dbContext.SaveChangesAsync();
+                
+                // Link File to History Table Using HistoryId 
+                var HistoryData = _dbContext.ResourceManagerAssignmentsHistory.FirstOrDefault(x => x.HistoryId ==HistoryId); 
+                if (HistoryData != null) {
+                    HistoryData.FileDetailsId = result.Entity.ID;
+                    _dbContext.ResourceManagerAssignmentsHistory.Update(HistoryData);
+
+                    await _dbContext.SaveChangesAsync();
+                }
+                
+
+
             }
             catch (Exception)
             {

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProgramAssignWebAPI.Data;
 
@@ -11,9 +12,11 @@ using ProgramAssignWebAPI.Data;
 namespace ProgramAssignWebAPI.Migrations
 {
     [DbContext(typeof(AssignDbContext))]
-    partial class AssignDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230219192936_FKFileTypeToProgramTracker3")]
+    partial class FKFileTypeToProgramTracker3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -94,9 +97,6 @@ namespace ProgramAssignWebAPI.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("Date");
 
-                    b.Property<int>("FileDetailsId")
-                        .HasColumnType("int");
-
                     b.Property<string>("HistoryProgramTrackerId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -138,8 +138,6 @@ namespace ProgramAssignWebAPI.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("HistoryId");
-
-                    b.HasIndex("FileDetailsId");
 
                     b.HasIndex("ProgramsTrackerId");
 
@@ -279,19 +277,11 @@ namespace ProgramAssignWebAPI.Migrations
 
             modelBuilder.Entity("ProgramAssignWebAPI.Models.Domain.ResourceManagerAssignmentsHistory", b =>
                 {
-                    b.HasOne("ProgramAssignWebAPI.Models.FileDetails", "FileDetails")
-                        .WithMany()
-                        .HasForeignKey("FileDetailsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("ProgramAssignWebAPI.Models.Domain.ProgramsTracker", "ProgramsTracker")
                         .WithMany()
                         .HasForeignKey("ProgramsTrackerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("FileDetails");
 
                     b.Navigation("ProgramsTracker");
                 });

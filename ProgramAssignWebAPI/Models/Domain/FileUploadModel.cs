@@ -12,5 +12,7 @@ namespace ProgramAssignWebAPI.Models
     {
         public IFormFile FileDetails { get; set; }
         public FileType FileType { get; set; }
+
+        public int HistoryId { get; set; }
     }
 }

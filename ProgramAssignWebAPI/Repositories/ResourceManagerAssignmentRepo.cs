@@ -62,7 +62,7 @@ namespace ProgramAssignWebAPI.Repositories
 
         public async Task<IEnumerable<ResourceManagerAssignmentsHistory>> GetResourceHistoryById(int Id)
         {
-           var response = await  _dbContext.ResourceManagerAssignmentsHistory.Include(x =>x.ProgramsTracker).Where(x => x.Id == Id).ToListAsync();
+           var response = await  _dbContext.ResourceManagerAssignmentsHistory.Include(x =>x.ProgramsTracker).Include(x => x.FileDetails).Where(x => x.Id == Id).ToListAsync();
            //IList<ResourceMangerAssignments> resources = new List<ResourceMangerAssignments>();
            // var GetAllPrograms =await _dbContext.ProgramsTracker.ToListAsync();
            // foreach (var item in response)

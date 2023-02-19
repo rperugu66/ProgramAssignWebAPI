@@ -33,5 +33,8 @@ namespace ProgramAssignWebAPI.Models.Domain
         public string ActionType { get; set; }
         // navigation prop for WalkDifficulty
 
+        public int? FileDetailsId { get; set; }
+        public FileDetails FileDetails { get; set; }
+
     }
 }
