@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using ProgramAssignWebAPI.Data;
 using ProgramAssignWebAPI.Models.Domain;
 
@@ -18,8 +18,7 @@ namespace ProgramAssignWebAPI.Repositories
             var techtracks = await _dbContext.TechTracks.ToListAsync();
             return techtracks;
         
-        }
+        } 
 
-       
     }
 }

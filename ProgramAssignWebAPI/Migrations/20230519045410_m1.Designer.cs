@@ -12,8 +12,8 @@ using ProgramAssignWebAPI.Data;
 namespace ProgramAssignWebAPI.Migrations
 {
     [DbContext(typeof(AssignDbContext))]
-    [Migration("20230217184929_removeHistoryTable1")]
-    partial class removeHistoryTable1
+    [Migration("20230519045410_m1")]
+    partial class m1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,6 +42,10 @@ namespace ProgramAssignWebAPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -86,12 +90,25 @@ namespace ProgramAssignWebAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HistoryId"));
 
+                    b.Property<string>("ActionType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("AssociateDelayDays")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("AssociateSubmittedDate")
+                        .HasColumnType("Date");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("Date");
+
+                    b.Property<int?>("FileDetailsId")
+                        .HasColumnType("int");
 
                     b.Property<string>("HistoryProgramTrackerId")
                         .IsRequired()
@@ -102,6 +119,9 @@ namespace ProgramAssignWebAPI.Migrations
 
                     b.Property<string>("Manager")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProgramCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProgramStatus")
@@ -118,6 +138,21 @@ namespace ProgramAssignWebAPI.Migrations
                     b.Property<string>("SME")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("SMEApprovedDate")
+                        .HasColumnType("Date");
+
+                    b.Property<string>("SMEComments")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("SMEDelayDays")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("SMEEndDate")
+                        .HasColumnType("Date");
+
+                    b.Property<DateTime?>("SMEStartDate")
+                        .HasColumnType("Date");
 
                     b.Property<string>("SMEStatus")
                         .IsRequired()
@@ -163,6 +198,9 @@ namespace ProgramAssignWebAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ProgramCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ProgramStatus")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -176,6 +214,9 @@ namespace ProgramAssignWebAPI.Migrations
 
                     b.Property<string>("SME")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SMEComments")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SMEStatus")
@@ -196,7 +237,10 @@ namespace ProgramAssignWebAPI.Migrations
 
                     b.HasIndex("ProgramsTrackerId");
 
-                    b.ToTable("ResourceMangerAssignments");
+                    b.ToTable("ResourceMangerAssignments", t =>
+                        {
+                            t.HasTrigger("ResourceManagerAssignments_Update_Trigger");
+                        });
                 });
 
             modelBuilder.Entity("ProgramAssignWebAPI.Models.Domain.TechTracks", b =>

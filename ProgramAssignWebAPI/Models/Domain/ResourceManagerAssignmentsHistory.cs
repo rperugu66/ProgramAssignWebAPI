@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
@@ -32,9 +32,24 @@ namespace ProgramAssignWebAPI.Models.Domain
         public string HistoryProgramTrackerId { get; set; }
         public string ActionType { get; set; }
         // navigation prop for WalkDifficulty
-
+        public string? SMEComments { get; set; }
+        public string? ProgramCode { get; set; }
         public int? FileDetailsId { get; set; }
-        public FileDetails FileDetails { get; set; }
-
+    //public FileDetails FileDetails { get; set; }
+    //Swapna Added
+    [DataType(DataType.Date)]
+    [Column(TypeName = "Date")]
+    public DateTime? AssociateSubmittedDate { get; set; }
+        public int? AssociateDelayDays { get; set; }
+    [DataType(DataType.Date)]
+    [Column(TypeName = "Date")]
+    public DateTime? SMEStartDate  { get; set; }
+    [DataType(DataType.Date)]
+    [Column(TypeName = "Date")]
+    public DateTime? SMEEndDate { get; set; }
+    [DataType(DataType.Date)]
+    [Column(TypeName = "Date")]
+    public DateTime? SMEApprovedDate { get; set; }
+        public int? SMEDelayDays { get; set; }
     }
 }

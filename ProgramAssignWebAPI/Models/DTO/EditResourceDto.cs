@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
@@ -20,5 +20,8 @@ namespace ProgramAssignWebAPI.Models.DTO
         public string SME { get; set; }
         public string? SMEStatus { get; set; }
         public string? ProgramStatus { get; set; }
-    }
+        public string? SMEComments { get; set; }
+        public string? ProgramCode { get; set; }
+    public string category { get; set; }
+  }
 }

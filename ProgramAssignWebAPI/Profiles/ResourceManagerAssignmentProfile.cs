@@ -12,7 +12,9 @@ namespace ProgramAssignWebAPI.Profiles
             CreateMap<ResourceMangerAssignments, ResourceManagerAssignmentDto>().ReverseMap(); // Converting Region class(source) to Regiondto class (destination) 
             CreateMap<AddResourceDto, ResourceMangerAssignments>();
             CreateMap<EditResourceDto, ResourceMangerAssignments>();
-            CreateMap<ResourceManagerAssignmentsHistory, ResourceManagerAssignmentDto>().ReverseMap();
+            CreateMap<ResourceManagerAssignmentsHistory, UpdateResourceHistoryDto>().ReverseMap();
+            CreateMap<ResourceManagerAssignmentsHistory, ResourceManagerHistoryDto>().ReverseMap();
+            CreateMap<ResourceManagerAssignmentsHistory, UpdateResourceHistoryCodeDto>().ReverseMap();
         }
         
 

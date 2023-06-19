@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ProgramAssignWebAPI.Models.Domain
@@ -22,6 +22,8 @@ namespace ProgramAssignWebAPI.Models.Domain
             public string SME { get; set; }
             public string SMEStatus { get; set; }
             public string ProgramStatus { get; set; }
+            public string? SMEComments { get; set; }
+            public string? ProgramCode { get; set; }
             // FK Key For 
             public int ProgramsTrackerId { get; set; }
             // Navigation prop
@@ -29,7 +31,6 @@ namespace ProgramAssignWebAPI.Models.Domain
             public ProgramsTracker ProgramsTracker { get; set; }
            public string HistoryProgramTrackerId { get; set;}
             // navigation prop for WalkDifficulty
-
 
     }
 }

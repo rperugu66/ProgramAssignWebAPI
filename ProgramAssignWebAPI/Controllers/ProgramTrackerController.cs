@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+using AutoMapper;
+using Azure;
 using Microsoft.AspNetCore.Mvc;
 using ProgramAssignWebAPI.Models.DTO;
 using ProgramAssignWebAPI.Repositories;
@@ -75,5 +76,21 @@ namespace ProgramAssignWebAPI.Controllers
             var tracksdto = _mapper.Map<List<TechTracksDto>>(tracks);
             return Ok(tracksdto); ;
         }
-    }
+       
+        [Route("GetCategoriesByTechTrack/{TechTrack}")]
+        [HttpGet]
+        public async Task<IActionResult> GetCategoriesByTechTrack(string TechTrack)
+        {
+          var categories = await _programTrackerRepo.GetCategoriesByTechTrack(TechTrack);
+          return Ok(categories);
+        }
+
+        [Route("GetProgramsByCategory/{TechTrack}/{Category}")]
+        [HttpGet]
+        public async Task<IActionResult> GetProgramsByCategory(string TechTrack, string Category)
+        {
+          var programs = await _programTrackerRepo.GetProgramsByCategory(TechTrack, Category);
+          return Ok(programs);
+        }
+  }
 }

@@ -3,7 +3,7 @@ using ProgramAssignWebAPI.Controllers;
 using ProgramAssignWebAPI.Data;
 using ProgramAssignWebAPI.Repositories;
 using ProgramAssignWebAPI.Services;
-
+using System.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,13 +20,14 @@ builder.Services.AddDbContext<AssignDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("AssignPath"));
 
 });
+
 // Register interface and Repo Class to resolve dependencies
 builder.Services.AddScoped<IResourceManagerAssignmentRepo, ResourceManagerAssignmentRepo>();
 builder.Services.AddScoped<IProgramTrackerRepo, ProgramTrackerRepo>();
 builder.Services.AddScoped<ITechTracks, TechTracksRepo>();
 builder.Services.AddScoped<IUserInfoRepo, UserInfoRepo>();
 builder.Services.AddDbContext<LoginInfoDbContext>(options =>
- options.UseSqlServer(builder.Configuration.GetConnectionString("AssignPath")));
+options.UseSqlServer(builder.Configuration.GetConnectionString("AssignPath")));
 //builder.Services.AddScoped<IEmployeeRepo, EmployeeRepo>();
 
 

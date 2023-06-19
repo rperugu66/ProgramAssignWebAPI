@@ -42,6 +42,10 @@ namespace ProgramAssignWebAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("VAMID")
                         .HasColumnType("int");
 
@@ -87,6 +91,12 @@ namespace ProgramAssignWebAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("AssociateDelayDays")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("AssociateSubmittedDate")
+                        .HasColumnType("Date");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -94,7 +104,7 @@ namespace ProgramAssignWebAPI.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("Date");
 
-                    b.Property<int>("FileDetailsId")
+                    b.Property<int?>("FileDetailsId")
                         .HasColumnType("int");
 
                     b.Property<string>("HistoryProgramTrackerId")
@@ -106,6 +116,9 @@ namespace ProgramAssignWebAPI.Migrations
 
                     b.Property<string>("Manager")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProgramCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProgramStatus")
@@ -123,6 +136,21 @@ namespace ProgramAssignWebAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("SMEApprovedDate")
+                        .HasColumnType("Date");
+
+                    b.Property<string>("SMEComments")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("SMEDelayDays")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("SMEEndDate")
+                        .HasColumnType("Date");
+
+                    b.Property<DateTime?>("SMEStartDate")
+                        .HasColumnType("Date");
+
                     b.Property<string>("SMEStatus")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -138,8 +166,6 @@ namespace ProgramAssignWebAPI.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("HistoryId");
-
-                    b.HasIndex("FileDetailsId");
 
                     b.HasIndex("ProgramsTrackerId");
 
@@ -169,6 +195,9 @@ namespace ProgramAssignWebAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ProgramCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ProgramStatus")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -182,6 +211,9 @@ namespace ProgramAssignWebAPI.Migrations
 
                     b.Property<string>("SME")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SMEComments")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SMEStatus")
@@ -279,19 +311,11 @@ namespace ProgramAssignWebAPI.Migrations
 
             modelBuilder.Entity("ProgramAssignWebAPI.Models.Domain.ResourceManagerAssignmentsHistory", b =>
                 {
-                    b.HasOne("ProgramAssignWebAPI.Models.FileDetails", "FileDetails")
-                        .WithMany()
-                        .HasForeignKey("FileDetailsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("ProgramAssignWebAPI.Models.Domain.ProgramsTracker", "ProgramsTracker")
                         .WithMany()
                         .HasForeignKey("ProgramsTrackerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("FileDetails");
 
                     b.Navigation("ProgramsTracker");
                 });

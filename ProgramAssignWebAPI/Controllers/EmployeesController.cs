@@ -1,4 +1,4 @@
-﻿
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProgramAssignWebAPI.Controllers;
@@ -65,6 +65,7 @@ namespace LoginInfo.API.Controllers
             employee.Name = UpdateEmployeeRequest.Name;
             employee.Email = UpdateEmployeeRequest.Email;
             employee.Password = UpdateEmployeeRequest.Password;
+            employee.Role = UpdateEmployeeRequest.Role;
             await _fullStackDbContext.SaveChangesAsync();
             return Ok(employee);
         }
@@ -84,5 +85,19 @@ namespace LoginInfo.API.Controllers
             await _fullStackDbContext.SaveChangesAsync();
             return Ok(employee);
         }
+    [HttpGet]
+    [Route("{Email}/{Password}")]
+    public async Task<IActionResult> GetEmployeeByEmail([FromRoute] string Email, string Password)
+    {
+      var employee = await _fullStackDbContext.Employees.FirstOrDefaultAsync(x => x.Email == Email && x.Password == Password);
+
+
+
+      if (employee == null)
+      {
+        return NotFound();
+      }
+      return Ok(employee);
     }
+  }
 }
